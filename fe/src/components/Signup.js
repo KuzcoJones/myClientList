@@ -47,6 +47,7 @@ class Signup extends React.Component{
                 // if (this.state.isTherapist){this.props.therapistFetch(this.state)} 
                     localStorage.setItem('token', data.token)
                     
+                    
                     if(this.state.isTherapist){
                         this.props.history.push('/signup/therapist')}
                     else{this.props.history.push('/signup/client')}
@@ -60,7 +61,7 @@ class Signup extends React.Component{
     
 }
     render(){
-        console.log(this.state)
+        
         return(
             <div>
             <h1>Hello there</h1>

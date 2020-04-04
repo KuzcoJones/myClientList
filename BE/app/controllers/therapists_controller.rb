@@ -7,8 +7,17 @@ class TherapistsController < ApplicationController
         user_id = decoded_token[0]['user_id']
         
         user = User.find(user_id)
-        # byebug
-        Therapist.create!(user: user, bio: params['bio'], location: params['location'], services: params['services'], specialties: params['specialties'])
+        
+       
+        therapist = Therapist.create!(user: user, bio: params['bio'], location: params['location'], services: params['services'], specialties: params['specialties'])
+
+        
+        
+        payload = { user_id: user.id, isTherapist: user.isTherapist, therapist_id: therapist.id }
+        
+        token = JWT.encode(payload, 'secret', 'HS256')
+
+        render json: { id: user.id, isTherapist: user.isTherapist, username: user.username, therapist_id: therapist.id, token: token}
         # check and see if able to use user and strong params.
     end 
 
@@ -30,7 +39,8 @@ class TherapistsController < ApplicationController
 
     def show
         
-        therapist = Therapist.find_by(user: params['id'])
+        therapist = Therapist.find(params['id'])
+        byebug
         render json: therapist.to_json(only: [:id, :bio, :location, :services, :specialties],
             include: [user: {only: [:id, :username, :full_name, :isTherapist]}, followers: {only: [:client_id, :therapist_id]}])
     end

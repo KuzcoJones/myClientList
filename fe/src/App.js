@@ -22,6 +22,13 @@ class App extends React.Component {
         isTherapist: data.isTherapist
     })
   }
+
+  profileInfo = (data) => {
+    this.setState({
+      ...this.state, profileData: data
+    })
+    
+  }
   // Step one update state to show isTherapist
     // Write a method to recieve data from Home.
     // And update state of app 
@@ -31,7 +38,7 @@ class App extends React.Component {
   // Might can conditionally render shit in the NavBar also. 
 
   render(){
-    console.log(this.state)
+    // console.log(this.state)
     return(
       <div>
         <Router>
@@ -40,11 +47,11 @@ class App extends React.Component {
 
           <Route exact path='/signup' component={Signup}/>
 
-          <Route exact path='/signup/therapist' component={TherapistSU} /> 
+          <Route exact path='/signup/therapist' render={ (props) => <TherapistSU {...props} profileInfo={this.profileInfo} />} /> 
           
           <Route exact path='/signup/client' component={ClientSU} /> 
 
-          <Route exact path='/profile' render={ (props) => <Profile {...props} isTherapist={this.state.isTherapist}/>} />
+          <Route exact path='/profile' render={ (props) => <Profile {...props} profileState = {this.state}/>} />
 
         </Router>
       </div>

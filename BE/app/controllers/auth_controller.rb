@@ -10,7 +10,15 @@ class AuthController < ApplicationController
         
         
         if user && user.authenticate(params[:password])
-            render json: { id: user.id, isTherapist: user.isTherapist, username: user.username, token: token}
+            if user.isTherapist 
+                therapist = Therapist.find_by(user: user)
+            render json: { id: user.id, isTherapist: user.isTherapist, username: user.username, therapist_id: therapist.id, token: token}
+
+            else
+                client = Client.find_by(user: user)
+            render json: { id: user.id, isTherapist: user.isTherapist, username: user.username, client_id: client.id, token: token}
+            
+            end
             
 
             else 

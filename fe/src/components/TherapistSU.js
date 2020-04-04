@@ -9,6 +9,7 @@ class TherapistSU extends React.Component{
 
         }
     }
+
     handleInputChange = (event) => {
         this.setState({
             ...this.state, [event.target.name]: event.target.value
@@ -17,7 +18,7 @@ class TherapistSU extends React.Component{
 
     handleForm = (event) => {
         event.preventDefault()
-        console.log(this.state)
+        // console.log(this.state)
         const token = localStorage.getItem('token')
         const newTherapistObj = {
             method: 'POST',
@@ -29,18 +30,13 @@ class TherapistSU extends React.Component{
         fetch('http://localhost:3000/therapists', newTherapistObj)
         .then(resp => resp.json())
         .then(data => {
-            // recieve data back from login user 
-            // set token to local storage
-            // redirect to the user profile with that data 
-
             if(data.error){
                 alert(data.error)}
             else { 
                 if (this.state.isTherapist){this.props.therapistFetch(this.state)} 
                     localStorage.setItem('token', data.token)
-                    // update App state with new info
-                    this.props.history.push('/home')
-                   
+                    this.props.profileInfo(data)
+                    this.props.history.push('/profile')
             }
 
             
@@ -51,7 +47,7 @@ class TherapistSU extends React.Component{
 
     render(){
 
-console.log(this.state)
+        
         return(
             <div>
 
@@ -93,9 +89,3 @@ console.log(this.state)
 export default TherapistSU
 
 
-
-
-// t.string "bio"
-//     t.string "location"
-//     t.string "services"
-//     t.string "specialties"

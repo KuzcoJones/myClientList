@@ -1,4 +1,5 @@
 import React from 'react'
+// recieveing therapist and client id from the backend from login and signup routes need to set it to app state and render info from the fetch.
 
 class Home extends React.Component{
     constructor(){
@@ -29,14 +30,14 @@ class Home extends React.Component{
             // recieve data back from login user 
             // set token to local storage
             // redirect to the user profile with that data 
-
-            if(data.error){
-                alert(data.error)}
-                else{
-                    localStorage.setItem('token', data.token)
-                    this.props.isTherapistApp(data)
-                    this.props.history.push('/profile')
-                }
+            console.log(data)
+            // if(data.error){
+            //     alert(data.error)}
+            //     else{
+            //         localStorage.setItem('token', data.token)
+            //         this.props.isTherapistApp(data)
+            //         this.props.history.push('/profile')
+            //     }
             }
         )
     }

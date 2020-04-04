@@ -11,7 +11,7 @@ class Profile extends React.Component{
 
 
     componentDidMount(){
-       if(this.props.isTherapist){
+       if(this.props.profileState.profileData.isTherapist){
         //    fetch from therapist 
             const token = localStorage.getItem('token')
             const therapistObj = {
@@ -21,7 +21,7 @@ class Profile extends React.Component{
                 'Content-Type': 'application/json'
                 }
             }
-            fetch('http://localhost:3000/therapists', therapistObj)
+            fetch(`http://localhost:3000/therapists/${this.props.profileState.profileData.therapist_id}`, therapistObj)
             .then(resp => resp.json())
             .then(data => console.log(data))
         //  set state to data from fetch
@@ -55,7 +55,7 @@ class Profile extends React.Component{
 
 
     render(){
-        
+        console.log(this.props.profileState.profileData)
         return(
             <div>
                <h1>Hello</h1>     

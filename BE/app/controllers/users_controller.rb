@@ -7,7 +7,6 @@ class UsersController < ApplicationController
             full_name:params['full_name'], isTherapist: params['isTherapist']
             )
             
-
         payload = { user_id: user.id }
         token = JWT.encode(payload, 'secret', 'HS256')
 
