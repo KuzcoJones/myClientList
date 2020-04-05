@@ -1,10 +1,13 @@
 class PostsController < ApplicationController
     def index 
         token = request.headers[:Authorization].split(' ')[1]
+        # byebug
         decoded_token = JWT.decode(token, 'secret', true, { algorithm: 'HS256'})
 
         user_id = decoded_token[0]['user_id']
+        user = User.find(user_id)
         posts = Post.find_by(user_id: user_id)
+        render json: { posts: posts }
     end
 
     def create 
@@ -15,7 +18,7 @@ class PostsController < ApplicationController
 
         user = User.find(user_id)
 
-        post = Post.create(user:user, post_params)
+        post = Post.create(user:user, body: params['body'])
     end
 
     def update

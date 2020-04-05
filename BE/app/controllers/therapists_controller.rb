@@ -22,12 +22,13 @@ class TherapistsController < ApplicationController
     end 
 
     def index
-        token = request.headers[:Authorization].split(' ')[1]
-        decoded_token = JWT.decode(token, 'secret', true, { algorithm: 'HS256'})
+        # token = request.headers[:Authorization].split(' ')[1]
 
-        user_id = decoded_token[0]['user_id']
+        # decoded_token = JWT.decode(token, 'secret', true, { algorithm: 'HS256'})
 
-        user = User.find(user_id)
+        # user_id = decoded_token[0]['user_id']
+
+        # user = User.find(user_id)
 # byebug
         therapists = Therapist.all
         render json: therapists.to_json(only: [:id, :bio, :location, :services, :specialties],
@@ -40,7 +41,7 @@ class TherapistsController < ApplicationController
     def show
         
         therapist = Therapist.find(params['id'])
-        # byebug
+       
         render json: therapist.to_json(only: [:id, :bio, :location, :services, :specialties],
             include: [user: {only: [:id, :username, :full_name, :isTherapist]}, followers: {only: [:client_id, :therapist_id]}])
     end

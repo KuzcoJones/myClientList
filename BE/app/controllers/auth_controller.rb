@@ -3,19 +3,20 @@ class AuthController < ApplicationController
     def create
         user = User.find_by(username: params[:username])
         
-        payload = { user_id: user.id, isTherapist: user.isTherapist }
-        
-        token = JWT.encode(payload, 'secret', 'HS256')
-        # byebug
         
         
         if user && user.authenticate(params[:password])
+            # byebug
             if user.isTherapist 
+                payload = { user_id: user.id, isTherapist: user.isTherapist }
+                
+                token = JWT.encode(payload, 'secret', 'HS256')
                 therapist = Therapist.find_by(user: user)
-            # render json: { id: user.id, isTherapist: user.isTherapist, username: user.username, therapist_id: therapist.id, token: token}
-
-            render json: therapist.to_json(only: [:id, :bio, :location, :services, :specialties],
-                include: [user: {only: [:id, :username, :full_name, :isTherapist]}, followers: {only: [:client_id, :therapist_id]}], token: token)
+                # render json: { id: user.id, isTherapist: user.isTherapist, username: user.username, therapist_id: therapist.id, token: token}
+                
+                render json: {token: token, therapist: therapist}
+                
+                
 
             else
                 client = Client.find_by(user: user)

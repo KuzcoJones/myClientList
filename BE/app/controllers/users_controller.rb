@@ -10,7 +10,7 @@ class UsersController < ApplicationController
         payload = { user_id: user.id }
         token = JWT.encode(payload, 'secret', 'HS256')
 
-    render json: { id: user.id, username: user.username, token: token}
+        render json: { id: user.id, username: user.username, token: token}
                 
         end
 
