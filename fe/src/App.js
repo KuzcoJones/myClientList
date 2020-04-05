@@ -43,7 +43,7 @@ class App extends React.Component {
       <div>
         <Router>
           <NavBar/>
-          <Route exact path='/' render={ (props) => <Home {...props} isTherapistApp={this.isTherapistApp}/> }/>
+          <Route exact path='/' render={ (props) => <Home {...props} profileInfo={this.profileInfo}/> }/>
 
           <Route exact path='/signup' component={Signup}/>
 

@@ -30,14 +30,14 @@ class Home extends React.Component{
             // recieve data back from login user 
             // set token to local storage
             // redirect to the user profile with that data 
-            console.log(data)
-            // if(data.error){
-            //     alert(data.error)}
-            //     else{
-            //         localStorage.setItem('token', data.token)
-            //         this.props.isTherapistApp(data)
-            //         this.props.history.push('/profile')
-            //     }
+            
+            if(data.error){
+                alert(data.error)}
+                else{
+                    localStorage.setItem('token', data.token)
+                    {this.props.profileInfo(data)}
+                    this.props.history.push('/profile')
+                }
             }
         )
     }

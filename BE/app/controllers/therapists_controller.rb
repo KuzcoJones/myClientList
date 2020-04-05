@@ -40,7 +40,7 @@ class TherapistsController < ApplicationController
     def show
         
         therapist = Therapist.find(params['id'])
-        byebug
+        # byebug
         render json: therapist.to_json(only: [:id, :bio, :location, :services, :specialties],
             include: [user: {only: [:id, :username, :full_name, :isTherapist]}, followers: {only: [:client_id, :therapist_id]}])
     end
