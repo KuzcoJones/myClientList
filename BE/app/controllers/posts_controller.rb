@@ -6,7 +6,7 @@ class PostsController < ApplicationController
 
         user_id = decoded_token[0]['user_id']
         user = User.find(user_id)
-        posts = Post.find_by(user_id: user_id)
+        posts = Post.select{|post| post.user_id === user_id}
         render json: { posts: posts }
     end
 
@@ -17,8 +17,9 @@ class PostsController < ApplicationController
         user_id = decoded_token[0]['user_id']
 
         user = User.find(user_id)
-
-        post = Post.create(user:user, body: params['body'])
+    # byebug
+        post = Post.create(user:user, body: params['post_body'])
+        render json: {post: post}
     end
 
     def update
